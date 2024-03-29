@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended",
+    // Turns off all rules that are unnecessary or might conflict with Prettier. Make sure to put it last.
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "settings": {
+    "tailwindcss": {
+      "callees": ["cn", "cva"]
+    }
+  }
+}
