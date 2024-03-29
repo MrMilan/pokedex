@@ -1,0 +1,7 @@
+overwrite: true
+schema: "../backend/src/schema.graphql"
+generates:
+  ./libs/api/schema.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
