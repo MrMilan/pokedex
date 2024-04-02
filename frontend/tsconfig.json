@@ -22,6 +22,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@/api/*": ["./src/libs/api/*"],
+      "@/utils": ["./src/libs/utils"],
       "@tailwind.config": ["./tailwind.config.ts"]
     }
   },
