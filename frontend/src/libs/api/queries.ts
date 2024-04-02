@@ -1,7 +1,12 @@
 "use server";
 
 import { client } from "./client";
-import { GET_POKEMON_BY_ID_QUERY, GET_POKEMON_SIMPLE_BY_NAME_QUERY, GET_SIMPLE_POKEMONS_QUERY } from "./gqlDefinitions";
+import {
+  GET_POKEMON_BY_ID_QUERY,
+  GET_POKEMON_SIMPLE_BY_NAME_QUERY,
+  GET_POKEMON_TYPES_QUERY,
+  GET_SIMPLE_POKEMONS_QUERY,
+} from "./gqlDefinitions";
 import { handleError, handleResult } from "./utils";
 
 import type { Pokemon, PokemonConnection, PokemonsQueryInput } from "./schema";
@@ -55,5 +60,20 @@ export const getPokemonById = async (id: string): Promise<ResponseResult<Pokemon
     return handleResult(result, (resultData) => resultData.pokemonById);
   } catch (error) {
     return { serverError: handleError(`Failed to fetch Pokemon by ID "${id}"`, error) };
+  }
+};
+
+/**
+ * Retrieves a list of Pokemon types.
+ * @returns A Promise representing the list of Pokemon types.
+ */
+export const getPokemonTypes = async (): Promise<ResponseResult<string[]>> => {
+  try {
+    const result = await client.query<{ pokemonTypes: string[] }>({
+      query: GET_POKEMON_TYPES_QUERY,
+    });
+    return handleResult(result, (resultData) => resultData.pokemonTypes);
+  } catch (error) {
+    return { serverError: handleError(`Failed to fetch Pokemon types`, error) };
   }
 };
