@@ -194,6 +194,12 @@ export const GET_POKEMON_BY_ID_QUERY = gql`
   }
 `;
 
+export const GET_POKEMON_TYPES_QUERY = gql`
+  query GetPokemonTypes {
+    pokemonTypes
+  }
+`;
+
 export const FAVORITE_POKEMON_MUTATION = gql`
   mutation FavoritePokemon($id: ID!) {
     favoritePokemon(id: $id) {
