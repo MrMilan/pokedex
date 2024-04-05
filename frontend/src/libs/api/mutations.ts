@@ -1,9 +1,11 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { client } from "./client";
 import { FAVORITE_POKEMON_MUTATION, UNFAVORITE_POKEMON_MUTATION } from "./gqlDefinitions";
 import { handleError, handleResult } from "./utils";
 
+import { NEXT_CACHE_TAGS } from "./constants";
 import type { Pokemon } from "./schema";
 import type { ResponseResult } from "./types";
 
@@ -18,7 +20,12 @@ export const favoritePokemon = async (id: string): Promise<ResponseResult<Pokemo
       mutation: FAVORITE_POKEMON_MUTATION,
       variables: { id },
     });
-    return handleResult(result, (resultData) => resultData.favoritePokemon);
+    const handledResult = handleResult(result, (resultData) => resultData.favoritePokemon);
+    if (handledResult.dataResult) {
+      revalidateTag(NEXT_CACHE_TAGS.pokemons);
+      revalidateTag(NEXT_CACHE_TAGS.pokemon(id));
+    }
+    return handledResult;
   } catch (error) {
     return { serverError: handleError(`Failed to mark Pokemon with ID "${id}" as favorite`, error) };
   }
@@ -35,7 +42,12 @@ export const unFavoritePokemon = async (id: string): Promise<ResponseResult<Poke
       mutation: UNFAVORITE_POKEMON_MUTATION,
       variables: { id },
     });
-    return handleResult(result, (resultData) => resultData.unFavoritePokemon);
+    const handledResult = handleResult(result, (resultData) => resultData.unFavoritePokemon);
+    if (handledResult.dataResult) {
+      revalidateTag(NEXT_CACHE_TAGS.pokemons);
+      revalidateTag(NEXT_CACHE_TAGS.pokemon(id));
+    }
+    return handledResult;
   } catch (error) {
     return { serverError: handleError(`Failed to unmark Pokemon with ID "${id}" as favorite`, error) };
   }
