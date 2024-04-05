@@ -32,7 +32,7 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
       if (variant === "solid") {
         return "bg-primary border border-primary text-white";
       }
-      return null;
+      return "stroke-lime-200/70";
     };
 
     return (

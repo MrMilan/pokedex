@@ -1,4 +1,5 @@
 import { Input, InputProps } from "@/components/ui/Input";
+import { cn } from "@/utils";
 import { ControllerProps, ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { FormControl, FormField, FormItem, useFormField } from ".";
 
@@ -13,6 +14,7 @@ export interface InputFormFieldProps<
 > extends Omit<ControllerProps<TFieldValues, TName>, "render"> {
   label?: string;
   error?: string;
+  className?: string;
   inputProps?: Omit<InputFieldProps<TFieldValues, TName>, "label" | "error" | "labelProps" | "errorProps">;
 }
 
@@ -23,13 +25,14 @@ export const InputFormField = <
   label,
   inputProps,
   error,
+  className,
   ...props
 }: InputFormFieldProps<TFieldValues, TName>) => {
   return (
     <FormField
       {...props}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className={cn(className)}>
           <FormControl>
             <ControlledInputField
               inputProps={{

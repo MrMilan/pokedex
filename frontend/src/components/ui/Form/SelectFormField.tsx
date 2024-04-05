@@ -1,4 +1,5 @@
 import { Select, SelectProps } from "@/components/ui/Select";
+import { cn } from "@/utils";
 import { ControllerProps, ControllerRenderProps, FieldPath, FieldValues } from "react-hook-form";
 import { FormControl, FormField, FormItem, useFormField } from ".";
 
@@ -19,6 +20,7 @@ interface SelectFormFieldProps<
   label?: string;
   error?: string;
   options: SelectOption[];
+  className?: string;
   selectProps?: Omit<SelectFieldProps<TFieldValues, TName>, "label" | "error" | "labelProps" | "errorProps">;
 }
 
@@ -30,12 +32,13 @@ export const SelectFormField = <
   options,
   selectProps,
   error,
+  className,
   ...props
 }: SelectFormFieldProps<TFieldValues, TName>) => (
   <FormField
     {...props}
     render={({ field }) => (
-      <FormItem>
+      <FormItem className={cn(className)}>
         <FormControl>
           <ControlledSelectField
             options={options}
@@ -82,9 +85,7 @@ const ControlledSelectField = <
   };
   return (
     <Select {...selectInnerProps} {...field}>
-      <option value="" selected>
-        All
-      </option>
+      <option value="">All</option>
       {options.map(({ value, label }) => (
         <option key={value} value={value}>
           {label}
