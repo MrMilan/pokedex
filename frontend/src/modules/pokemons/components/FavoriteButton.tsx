@@ -6,12 +6,12 @@ import { cn } from "@/utils";
 
 import type { Pokemon } from "@/api/schema";
 
-export interface ItemProps {
+export interface FavoriteButtonProps {
   className?: string;
   pokemon: Pokemon;
 }
 
-export const FavoriteButton: React.FC<ItemProps> = ({ className, pokemon }) => {
+export const FavoriteButton: React.FC<FavoriteButtonProps> = ({ className, pokemon }) => {
   const handleFavoriteClick = async (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
     event.preventDefault();
     if (pokemon.isFavorite) {
