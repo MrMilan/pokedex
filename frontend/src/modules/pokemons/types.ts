@@ -1,4 +1,7 @@
 import { ContentFilter, ViewMode } from "@/modules/pokemons/enums";
+
+export type PokemonUrlParams = { name: string };
+
 export type UrlFiltrationSearchParams = {
   name?: string;
   pokemonType?: string;
